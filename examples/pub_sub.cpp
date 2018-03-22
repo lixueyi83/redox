@@ -8,8 +8,8 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
-
+int main(int argc, char *argv[]) 
+{
   redox::Redox publisher; // Initialize Redox (default host/port)
   if (!publisher.connect()) 
   {
@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
   auto unsubscribed = [](const string& topic) {
     cout << "> Unsubscribed from " << topic << endl;
   };
+  
   subscriber.subscribe("news", got_message);
   subscriber.subscribe("sports", got_message);
   
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
     otherwise, the publish operation will happen prior to the subscribe
     eventually no message captured.
   */
-  this_thread::sleep_for(chrono::milliseconds(10));
+  //this_thread::sleep_for(chrono::milliseconds(1));
 
   publisher.publish("news", "one");
   publisher.publish("news", "two");
@@ -46,8 +47,6 @@ int main(int argc, char *argv[]) {
 
   publisher.publish("sports", "\"UH OH\"");
   publisher.publish("news", "four");
-
-  //this_thread::sleep_for(chrono::milliseconds(100));
 
   subscriber.disconnect();
   publisher.disconnect();
