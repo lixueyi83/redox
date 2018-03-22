@@ -20,6 +20,39 @@ int main(int argc, char *argv[]) {
     cout << topic << ": " << msg << endl;
   };
 
+  auto unsubscribed = [](const string& topic) {
+    cout << "> Unsubscribed from " << topic << endl;
+  };
+  subscriber.psubscribe("news", got_message);
+  subscriber.subscribe("sports", got_message, unsubscribed);
+
+  publisher.publish("news", "one");
+  publisher.publish("news", "two");
+  publisher.publish("sports", "three");
+
+  subscriber.unsubscribe("sports");
+
+  publisher.publish("sports", "\"UH OH\"");
+  publisher.publish("news", "four");
+
+  subscriber.disconnect();
+  publisher.disconnect();
+  return 0;
+}
+
+
+int main_2(int argc, char *argv[]) {
+
+  redox::Redox publisher; // Initialize Redox (default host/port)
+  if (!publisher.connect()) return 1; // Start the event loop
+
+  redox::Subscriber subscriber;
+  if(!subscriber.connect()) return 1;
+
+  auto got_message = [](const string& topic, const string& msg) {
+    cout << topic << ": " << msg << endl;
+  };
+
   auto subscribed = [](const string& topic) {
     cout << "> Subscribed to " << topic << endl;
   };
