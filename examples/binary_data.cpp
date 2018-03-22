@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   string binary_key = random_string(100);
   string binary_data = random_string(10000);
 
-  rdx.del(binary_key);
+  cout << binary_key << endl;
 
   auto& c = rdx.commandSync<string>({"SET", binary_key, binary_data});
   if(c.ok()) cout << "Reply: " << c.reply() << endl;

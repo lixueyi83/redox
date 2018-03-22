@@ -34,14 +34,19 @@ int main(int argc, char* argv[]) {
 
   cout << "binary data size " << binary_data.length() << endl;
 
-  sub.subscribe("test", [binary_data](const string& topic, const string& msg) {
+  sub.subscribe("test", [binary_data](const string& key, const string& msg) {
     cout << "msg data size " << msg.length() << endl;
-    if(msg == binary_data) cout << "Binary data matches!" << endl;
+    cout << "key: " << key << endl;
+    if(msg == binary_data) 
+        cout << "Binary data matches!" << endl;
+    else 
+        cout << "binary data does not matche!" << endl;
   });
 
   this_thread::sleep_for( chrono::milliseconds(1000) );
 
   rdx.publish("test", binary_data);
+  rdx.publish("test", "hello-world");
 
   this_thread::sleep_for( chrono::milliseconds(1000) );
 

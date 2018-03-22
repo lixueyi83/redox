@@ -19,7 +19,8 @@ int main(int argc, char* argv[]) {
 
   rdx.del("mylist");
 
-  rdx.commandSync(rdx.strToVec("LPUSH mylist 1 2 3 4 5 6 7 8 9 10"));
+  //rdx.commandSync(rdx.strToVec("LPUSH mylist 1 2 3 4 5 6 7 8 9 10"));
+  rdx.command(rdx.strToVec("LPUSH mylist 1 2 3 4 5 6 7 8 9 10"));
 
   rdx.command<vector<string>>({"LRANGE", "mylist", "0", "4"},
     [](Command<vector<string>>& c){

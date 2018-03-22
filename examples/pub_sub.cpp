@@ -31,6 +31,12 @@ int main(int argc, char *argv[]) {
   subscriber.psubscribe("news", got_message, subscribed, unsubscribed);
   subscriber.subscribe("sports", got_message, subscribed, unsubscribed);
   subscriber.subscribe("other", got_message, subscribed, unsubscribed);
+ 
+    cout << "---------------------------------------" << endl;
+
+  //subscriber.psubscribe("news", got_message);
+  //subscriber.subscribe("sports", got_message);
+  //subscriber.subscribe("other", got_message);
 
   this_thread::sleep_for(chrono::milliseconds(10));
 
@@ -38,9 +44,13 @@ int main(int argc, char *argv[]) {
   publisher.publish("news", "two");
   publisher.publish("sports", "three");
 
+    cout << "---------------------------------------" << endl;
+
   this_thread::sleep_for(chrono::milliseconds(10));
   subscriber.unsubscribe("sports");
   this_thread::sleep_for(chrono::milliseconds(10));
+
+    cout << "---------------------------------------" << endl;
 
   publisher.publish("sports", "\"UH OH\"");
   publisher.publish("news", "four");
